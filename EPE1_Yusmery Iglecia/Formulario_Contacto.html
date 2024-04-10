@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulario de Contacto</h1>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" id="address" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="commune">Comuna:</label>
+                <select id="commune" class="form-control" required>
+                    <option value="">Seleccione una comuna</option>
+                    <option value="Lo Barnechea">Lo Barnechea</option>
+                    <option value="Providencia">Providencia</option>
+                    <option value="Las Condes">Las Condes</option>
+                    <option value="Independencia">Independencia</option>
+                    <option value="Quilicura">Quilicura</option>
+                    <option value="Maipú">Maipú</option>
+                    <option value="Estacion Central">Estacion Central</option>
+                    <option value="Huechuraba">Huechuraba</option>
+                    <option value="La Reina">La Reina</option>
+                    <option value="Macul">Macul</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-secondary" onclick="goBack()">Volver</button>
+        </form>
+        <div id="formData" class="mt-4"></div>
+    </div>
+    <script>
+        // Función para volver atrás en la historia del navegador
+        function goBack() {
+            window.history.back();
+        }
+
+        // Event listener para el formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const commune = document.getElementById('commune').value;
+
+            const message = <strong>Nombre:</strong> ${name}<br><strong>Correo electrónico:</strong> ${email}<br><strong>Dirección:</strong> ${address}<br><strong>Comuna:</strong> ${commune};
+
+            // Mostrar los datos en la página web
+            const dataContainer = document.getElementById('formData');
+            dataContainer.innerHTML = <div class="alert alert-success">${message}</div>;
+        });
+    </script>
+</body>
+</html>

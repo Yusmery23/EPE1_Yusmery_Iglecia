@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtro de Productos</title>
+</head>
+<body>
+
+<h1>Filtro de Productos</h1>
+
+<label for="filtroCategoria">Filtrar por categoría:</label>
+<select id="filtroCategoria">
+  <option value="todas">Todas</option>
+  <option value="frutas">Frutas</option>
+  <option value="verduras">Verduras</option>
+</select>
+
+<label for="filtroNombre">Filtrar por nombre:</label>
+<input type="text" id="filtroNombre">
+
+<ul id="listaProductos">
+  <!-- Aquí se mostrarán los resultados del filtro -->
+</ul>
+
+<script>
+const productos = [
+  { nombre: 'Piña', categoria: 'frutas' },
+  { nombre: 'Melon', categoria: 'frutas' },
+  { nombre: 'Cambur', categoria: 'frutas' },
+  { nombre: 'Pera', categoria: 'frutas' },
+  { nombre: 'Zapallo', categoria: 'verduras' },
+  { nombre: 'Lechuga', categoria: 'verduras' },
+  { nombre: 'Tomate', categoria: 'verduras' },
+  { nombre: 'Papa', categoria: 'verduras' },
+  { nombre: 'Sandía', categoria: 'frutas' },
+  { nombre: 'Pepino', categoria: 'verduras' }
+];
+
+const listaProductos = document.getElementById('listaProductos');
+const filtroCategoria = document.getElementById('filtroCategoria');
+const filtroNombre = document.getElementById('filtroNombre');
+
+function mostrarProductos(productos) {
+  listaProductos.innerHTML = '';
+  productos.forEach(producto => {
+    const item = document.createElement('li');
+    item.textContent = `${producto.nombre} - ${producto.categoria}`;
+    listaProductos.appendChild(item);
+  });
+}
+
+function filtrarProductos() {
+  const categoriaSeleccionada = filtroCategoria.value;
+  const nombreFiltro = filtroNombre.value.toLowerCase();
+
+  const productosFiltrados = productos.filter(producto => {
+    const categoriaCoincide = categoriaSeleccionada === 'todas' || producto.categoria === categoriaSeleccionada;
+    const nombreCoincide = producto.nombre.toLowerCase().includes(nombreFiltro);
+    return categoriaCoincide && nombreCoincide;
+  });
+
+  mostrarProductos(productosFiltrados);
+}
+
+filtroCategoria.addEventListener('change', filtrarProductos);
+filtroNombre.addEventListener('input', filtrarProductos);
+
+mostrarProductos(productos); // Mostrar todos los productos al cargar la página
+</script>
+
+</body>
+</html>
